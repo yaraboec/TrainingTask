@@ -1,9 +1,11 @@
-const TaskService = require('../services/taskService');
+const TaskService = require('../services/task.service');
+
+const taskService = new TaskService();
 
 class TaskController {
   async create(req, res) {
     try {
-      const task = await TaskService.create(req.body);
+      const task = await taskService.create(req.body);
       res.json(task);
     } catch (err) {
       res.status(500).json(err);
@@ -12,7 +14,8 @@ class TaskController {
 
   async getAll(req, res) {
     try {
-      const tasks = await TaskService.getAll();
+      const tasks = await taskService.getAll();
+
       return res.json(tasks);
     } catch (err) {
       res.status(500).json(err);
@@ -21,7 +24,8 @@ class TaskController {
 
   async getById(req, res) {
     try {
-      const task = await TaskService.getById(req.params.id);
+      const task = await taskService.getById(req.params.id);
+
       return res.json(task);
     } catch (err) {
       res.status(500).json(err);
@@ -30,7 +34,8 @@ class TaskController {
 
   async update(req, res) {
     try {
-      const updatedTask = await TaskService.update(req.body);
+      const updatedTask = await taskService.update(req.body, res);
+
       return res.json(updatedTask);
     } catch (err) {
       res.status(500).json(err);
@@ -39,7 +44,8 @@ class TaskController {
 
   async delete(req, res) {
     try {
-      const task = await TaskService.delete(req.params.id);
+      const task = await taskService.delete(req.params.id);
+
       return res.json(task);
     } catch (err) {
       res.status(500).json(err);

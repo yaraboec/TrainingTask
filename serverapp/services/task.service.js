@@ -1,4 +1,4 @@
-const Task = require('../models/Task');
+const Task = require('../models/task.model');
 
 class TaskService {
   async create(task) {
@@ -32,6 +32,7 @@ class TaskService {
 
   async delete(id) {
     if (!id) {
+      console.log(1);
       throw new Error('Id не коректен');
     }
     const task = await Task.findByIdAndDelete(id);
@@ -39,4 +40,4 @@ class TaskService {
   }
 }
 
-module.exports = new TaskService();
+module.exports = TaskService;
