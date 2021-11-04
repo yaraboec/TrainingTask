@@ -12,6 +12,8 @@
         "ecmaVersion": 12
     },
     "rules": {
+        "class-methods-use-this": 0,
+        "no-underscore-dangle": 0,
         "linebreak-style": ["error", "windows"],
         "import/prefer-default-export": "off",
         "no-nested-ternary": "off",
