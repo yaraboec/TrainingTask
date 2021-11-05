@@ -1,56 +1,47 @@
+const NotFoundException = require('../errors/not.found.error');
 const TaskService = require('../services/task.service');
 
 const taskService = new TaskService();
 
 class TaskController {
   async create(req, res) {
-    try {
-      const task = await taskService.create(req.body);
-      res.json(task);
-    } catch (err) {
-      res.status(500).json(err);
-    }
+    const task = await taskService.create(req.body);
+
+    return res.json(task);
   }
 
   async getAll(req, res) {
-    try {
-      const tasks = await taskService.getAll();
+    const tasks = await taskService.getAll();
 
-      return res.json(tasks);
-    } catch (err) {
-      res.status(500).json(err);
-    }
+    return res.json(tasks);
   }
 
   async getById(req, res) {
-    try {
-      const task = await taskService.getById(req.params.id);
+    const task = await taskService.getById(req.params.id);
 
-      return res.json(task);
-    } catch (err) {
-      res.status(500).json(err);
-    }
+    return res.json(task);
   }
 
-  async update(req, res) {
-    try {
-      const updatedTask = await taskService.update(req.body);
+  async update(req, res, next) {
+    const updatedTask = await taskService.update(req.body);
 
-      return res.json(updatedTask);
-    } catch (err) {
-      res.status(500).json(err);
+    if (!updatedTask) {
+      const error = new NotFoundException('No task found with that ID', 404);
+
+      return next(error);
     }
+
+    return res.status(202).json({
+      status: 'success',
+      data: { updatedTask },
+    });
   }
 
   async delete(req, res) {
-    try {
-      const task = await taskService.delete(req.params.id);
+    const task = await taskService.delete(req.params.id);
 
-      return res.json(task);
-    } catch (err) {
-      res.status(500).json(err);
-    }
+    return res.json(task);
   }
 }
 
-module.exports = new TaskController();
+module.exports = TaskController;
