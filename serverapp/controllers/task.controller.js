@@ -16,31 +16,41 @@ class TaskController {
     return res.json(tasks);
   }
 
-  async getById(req, res) {
-    const task = await taskService.getById(req.params.id);
+  async getById(req, res, next) {
+    const gotTask = await taskService.getById(req.params.id);
 
-    return res.json(task);
+    if (!gotTask) {
+      return next(new NotFoundException('No task found with that ID', 404));
+    }
+
+    return res.status(200).json({
+      status: 'success',
+      data: { gotTask },
+    });
   }
 
   async update(req, res, next) {
     const updatedTask = await taskService.update(req.body);
 
     if (!updatedTask) {
-      const error = new NotFoundException('No task found with that ID', 404);
-
-      return next(error);
+      return next(new NotFoundException('No task found with that ID', 404));
     }
 
-    return res.status(202).json({
+    return res.status(200).json({
       status: 'success',
       data: { updatedTask },
     });
   }
 
-  async delete(req, res) {
-    const task = await taskService.delete(req.params.id);
+  async delete(req, res, next) {
+    const deletedTask = await taskService.delete(req.params.id);
 
-    return res.json(task);
+    if (!deletedTask) {
+      return next(new NotFoundException('No task found with that ID', 404));
+    }
+    return res.status(204).json({
+      status: 'success',
+    });
   }
 }
 

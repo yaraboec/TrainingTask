@@ -10,12 +10,10 @@ const catchAsync = (fn) => (req, res, next) => {
   fn(req, res, next).catch(next);
 };
 
-router.post('/tasks', taskController.create);
-router.get('/tasks', taskController.getAll);
-router.get('/tasks/:id', taskController.getById);
-router.put('/tasks', catchAsync(async (req, res, next) => {
-  taskController.update(req, res, next);
-}));
-router.delete('/tasks/:id', taskController.delete);
+router.post('/tasks', catchAsync(taskController.create));
+router.get('/tasks', catchAsync(taskController.getAll));
+router.get('/tasks/:id', catchAsync(taskController.getById));
+router.put('/tasks', catchAsync(taskController.update));
+router.delete('/tasks/:id', catchAsync(taskController.delete));
 
 module.exports = router;
