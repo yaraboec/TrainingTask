@@ -28,7 +28,7 @@ class TaskController {
     if (!updatedTask) {
       const error = new NotFoundException('No task found with that ID', 404);
 
-      next(error);
+      return next(error);
     }
 
     return res.status(202).json({
