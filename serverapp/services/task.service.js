@@ -17,25 +17,26 @@ class TaskService {
     if (!id) {
       throw new Error('Id не коректен');
     }
-    const post = await Task.findById(id);
+    const task = await Task.findById(id);
 
-    return post;
+    return task;
   }
 
   async update(task) {
     if (!task._id) {
-      throw new Error('Id не коректен');
+      throw Error('Id не коректен');
     }
     const updatedTask = await Task.findByIdAndUpdate(task._id, task, { new: true });
+
     return updatedTask;
   }
 
   async delete(id) {
     if (!id) {
-      console.log(1);
       throw new Error('Id не коректен');
     }
     const task = await Task.findByIdAndDelete(id);
+
     return task;
   }
 }
