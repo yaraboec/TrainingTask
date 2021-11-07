@@ -1,13 +1,31 @@
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 
-const dbConString = require('./enviroment');
+const { dbConString, clientUrl } = require('./enviroment');
 const router = require('./routes/router');
 
 const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
+
+const corsOpts = {
+  origin: clientUrl,
+
+  methods: [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+  ],
+
+  allowedHeaders: [
+    'Content-Type',
+  ],
+};
+
+app.use(cors(corsOpts));
 
 app.use('/api', router);
 app.use((err, req, res, next) => {

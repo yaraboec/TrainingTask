@@ -1,3 +1,3 @@
-const backConString = 'http://localhost:5000/api';
+const backConString = 'http://localhost:5000';
 
 export default backConString;

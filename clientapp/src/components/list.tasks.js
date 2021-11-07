@@ -1,9 +1,12 @@
-function List() {
+const List = () => {
+  const data = 'Hello';
   return (
-    <div className="app">
-      <h1>Hello</h1>
+    <div>
+      <h1>
+        {data}
+      </h1>
     </div>
   );
-}
+};
 
 export default List;

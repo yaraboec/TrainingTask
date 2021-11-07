@@ -48,9 +48,7 @@ class TaskController {
     if (!deletedTask) {
       return next(new NotFoundException('No task found with that ID', 404));
     }
-    return res.status(204).json({
-      status: 'success',
-    });
+    return res.status(200).json(deletedTask._id);
   }
 }
 

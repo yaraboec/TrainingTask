@@ -22,6 +22,8 @@
         "i18next"
     ],
     "rules": {
+      "no-underscore-dangle":  ["error", { "allow": ["_id"] }],
+      "no-alert": 0,
       "react/react-in-jsx-scope": "off",
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }
