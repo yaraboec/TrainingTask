@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import List from './components/list.tasks';
 import './App.css';
-import fetchTasks, { addTask, deleteTask } from './actions/task.async.actions';
+import fetchTasks, { addTask, deleteTask, updateTask } from './actions/task.async.actions';
 import TaskCreateRequest from './models/create.task.model';
+import TaskUpdateRequest from './models/update.task.model';
 
 const App = () => {
   const [t] = useTranslation();
@@ -15,7 +16,7 @@ const App = () => {
     dispatch(fetchTasks());
   }, []);
 
-  const addTasklocal = (info) => {
+  const addTaskFoo = (info) => {
     const task = new TaskCreateRequest(info, true);
     dispatch(addTask(task));
   };
@@ -25,12 +26,17 @@ const App = () => {
     dispatch(deleteTask(task._id));
   };
 
+  const updateTaskFoo = (task) => {
+    const taskModel = new TaskUpdateRequest(task._id, task.name, false);
+    dispatch(updateTask(taskModel));
+  };
+
   return (
     <div className="app">
       <List />
       <h1>{t('Welcome')}</h1>
       <div>
-        <button type="button" onClick={() => addTasklocal(prompt())}>Добавить задание</button>
+        <button type="button" onClick={() => addTaskFoo(prompt())}>Добавить задание</button>
       </div>
       {tasks.length > 0
         ? (
@@ -39,6 +45,7 @@ const App = () => {
               <div>
                 <input type="text" value={task.name} />
                 <button type="button" onClick={() => removeTask(task)}>Удалить задание</button>
+                <button type="button" onClick={() => updateTaskFoo(task)}>Завершить задание</button>
               </div>
             ))}
           </div>

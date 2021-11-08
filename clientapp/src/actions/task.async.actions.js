@@ -19,6 +19,17 @@ export const addTask = (task) => async function (dispatch) {
     .then((json) => dispatch(addTaskAction(json)));
 };
 
+export const updateTask = (task) => async function (dispatch) {
+  await fetch(backConString.concat('/api/tasks'), {
+    method: 'PUT',
+    body: JSON.stringify(task),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((response) => response.json())
+    .then((json) => dispatch(updateTask(json)));
+};
+
 export const deleteTask = (id) => async function (dispatch) {
   await fetch(backConString.concat('/api/tasks/').concat(id), {
     method: 'DELETE',
