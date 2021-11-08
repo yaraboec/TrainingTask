@@ -1,3 +1,14 @@
 {
-    "Welcome" : "Welcome to React"
+    "Welcome" : "Welcome to React",
+    "Hello": "Hello",
+    "Tasks": {
+        "Active": "Active tasks",
+        "Completed":"Completed tasks",
+        "Buttons":{
+        "Add": "Add task",
+        "Delete": "Delete task",
+        "Complete": "Complete task",
+        "NoTask": "You dont have any tasks. Lets create a couple!"
+        }
+    }
 }
