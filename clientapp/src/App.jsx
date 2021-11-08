@@ -14,6 +14,8 @@ import TaskUpdateRequest from './models/update.task.model';
 const App = () => {
   const [t] = useTranslation();
   const dispatch = useDispatch();
+  const [inputState, setInputState] = useState(true);
+  const [inputUpdateName, setInputUpdateName] = useState('');
   const [name, setName] = useState('');
   const tasks = useSelector((state) => state.tasks.tasks);
 
@@ -30,8 +32,13 @@ const App = () => {
     dispatch(deleteTask(task._id));
   };
 
-  const updateTaskFoo = (task) => {
+  const completeTask = (task) => {
     const taskModel = new TaskUpdateRequest(task._id, task.name, false);
+    dispatch(updateTask(taskModel));
+  };
+
+  const updateTaskFoo = (task) => {
+    const taskModel = new TaskUpdateRequest(task._id, inputUpdateName, task.status);
     dispatch(updateTask(taskModel));
   };
 
@@ -47,12 +54,25 @@ const App = () => {
         ? (
           <div>
             <div>
-              <h2>{t('Tasks.Active')}</h2>
+              <div style={{ display: 'flex' }}>
+                <h2>{t('Tasks.Active')}</h2>
+                <button
+                  style={{
+                    height: '30px', width: '150px', marginTop: '23px', marginLeft: '30px',
+                  }}
+                  type="button"
+                  onClick={() => setInputState(false)}
+                >
+                  {t('Tasks.Buttons.Edit')}
+                </button>
+
+              </div>
               {tasks.map((task) => (
                 task.status === true && (
                 <div>
-                  <input type="text" value={task.name} />
-                  <button type="button" onClick={() => updateTaskFoo(task)}>{t('Tasks.Buttons.Complete')}</button>
+                  <input type="text" defaultValue={task.name} onChange={(e) => setInputUpdateName(e.target.value)} readOnly={inputState} />
+                  <button type="button" onClick={() => completeTask(task)}>{t('Tasks.Buttons.Complete')}</button>
+                  <button type="button" hidden={inputState} onClick={() => { updateTaskFoo(task); setInputState(true); }}>{t('Tasks.Buttons.Save')}</button>
                 </div>
                 )))}
             </div>
