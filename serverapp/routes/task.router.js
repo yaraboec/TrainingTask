@@ -12,15 +12,15 @@ const catchAsync = (fn) => (req, res, next) => {
 };
 
 router.post('/tasks',
-  body('name').isLength({ min: 5 }),
-  body('status').isBoolean(),
+  body('name', 'Name length should be longer than 5').isLength({ min: 5 }),
+  body('status', 'Status should be boolead type').isBoolean(),
   catchAsync(taskController.create));
 router.get('/tasks', catchAsync(taskController.getAll));
 router.get('/tasks/:id', catchAsync(taskController.getById));
 router.put('/tasks',
-  body('name').isLength({ min: 5 }),
-  body('status').isBoolean(),
-  body('_id').notEmpty(),
+  body('name', 'Name length should be longer than 5').isLength({ min: 5 }),
+  body('status', 'Status should be boolead type').isBoolean(),
+  body('_id', 'Probably, you forgot to put an id').notEmpty(),
   catchAsync(taskController.update));
 router.delete('/tasks/:id', catchAsync(taskController.delete));
 

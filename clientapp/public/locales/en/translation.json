@@ -12,5 +12,14 @@
         "Save": "Save",
         "NoTask": "You dont have any tasks. Lets create a couple!"
         }
+    },
+    "Auth": {
+        "Registration":"Registration",
+        "Register":"Register",
+        "Login": "Log in",
+        "Email": "Email",
+        "Password": "Password",
+        "RegisterRequest": "Dont have an account yet?",
+        "LoginRequest": "Already have an account?"
     }
-}
+    }

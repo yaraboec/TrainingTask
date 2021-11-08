@@ -3,7 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const { dbConString, clientUrl } = require('./enviroment');
-const router = require('./routes/router');
+const authRouter = require('./routes/auth.router');
+const taskRouter = require('./routes/task.router');
 
 const PORT = process.env.PORT || 5000;
 
@@ -27,7 +28,9 @@ const corsOpts = {
 
 app.use(cors(corsOpts));
 
-app.use('/api', router);
+app.use('/api', taskRouter);
+app.use('/auth', authRouter);
+
 app.use((err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
