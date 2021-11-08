@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import List from './components/list.tasks';
 import './App.css';
-import fetchTasks, { addTask, deleteTask, updateTask } from './actions/task.async.actions';
+import {
+  fetchTasks, addTask, deleteTask, updateTask,
+} from './actions/task.async.actions';
 import TaskCreateRequest from './models/create.task.model';
 import TaskUpdateRequest from './models/update.task.model';
 
@@ -22,7 +24,6 @@ const App = () => {
   };
 
   const removeTask = (task) => {
-    // eslint-disable-next-line no-underscore-dangle
     dispatch(deleteTask(task._id));
   };
 
@@ -41,13 +42,26 @@ const App = () => {
       {tasks.length > 0
         ? (
           <div>
-            {tasks.map((task) => (
-              <div>
-                <input type="text" value={task.name} />
-                <button type="button" onClick={() => removeTask(task)}>Удалить задание</button>
-                <button type="button" onClick={() => updateTaskFoo(task)}>Завершить задание</button>
-              </div>
-            ))}
+            <div>
+              <h2>Активные задания</h2>
+              {tasks.map((task) => (
+                task.status === true && (
+                <div>
+                  <input type="text" value={task.name} />
+                  <button type="button" onClick={() => updateTaskFoo(task)}>Завершить задание</button>
+                </div>
+                )))}
+            </div>
+            <div>
+              <h2>Завершённые задания</h2>
+              {tasks.map((task) => (
+                task.status === false && (
+                  <div>
+                    <input type="text" value={task.name} />
+                    <button type="button" onClick={() => removeTask(task)}>Удалить задание</button>
+                  </div>
+                )))}
+            </div>
           </div>
         )
         : (

@@ -23,10 +23,7 @@ class TaskController {
       return next(new NotFoundException('No task found with that ID', 404));
     }
 
-    return res.status(200).json({
-      status: 'success',
-      data: { gotTask },
-    });
+    return res.status(200).json(gotTask);
   }
 
   async update(req, res, next) {
@@ -36,10 +33,7 @@ class TaskController {
       return next(new NotFoundException('No task found with that ID', 404));
     }
 
-    return res.status(200).json({
-      status: 'success',
-      data: { updatedTask },
-    });
+    return res.status(200).json(updatedTask);
   }
 
   async delete(req, res, next) {

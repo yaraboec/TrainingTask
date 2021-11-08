@@ -1,7 +1,9 @@
 import backConString from '../enviroment';
-import { addTaskAction, addTasksAction, deleteTaskAction } from '../reducers/task.reducer';
+import {
+  addTaskAction, addTasksAction, deleteTaskAction, updateTaskAction,
+} from '../reducers/task.reducer';
 
-const fetchTasks = () => async function (dispatch) {
+export const fetchTasks = () => async function (dispatch) {
   await fetch(backConString.concat('/api/tasks'))
     .then((response) => response.json())
     .then((json) => dispatch(addTasksAction(json)));
@@ -27,7 +29,7 @@ export const updateTask = (task) => async function (dispatch) {
       'Content-Type': 'application/json',
     },
   }).then((response) => response.json())
-    .then((json) => dispatch(updateTask(json)));
+    .then((json) => dispatch(updateTaskAction(json)));
 };
 
 export const deleteTask = (id) => async function (dispatch) {
@@ -36,5 +38,3 @@ export const deleteTask = (id) => async function (dispatch) {
   }).then((responce) => responce.json())
     .then((json) => dispatch(deleteTaskAction(json)));
 };
-
-export default fetchTasks;
