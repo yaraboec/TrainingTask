@@ -69,11 +69,11 @@ const App = () => {
               </div>
               {tasks.map((task) => (
                 task.status === true && (
-                <div>
-                  <input type="text" defaultValue={task.name} onChange={(e) => setInputUpdateName(e.target.value)} readOnly={inputState} />
-                  <button type="button" onClick={() => completeTask(task)}>{t('Tasks.Buttons.Complete')}</button>
-                  <button type="button" hidden={inputState} onClick={() => { updateTaskFoo(task); setInputState(true); }}>{t('Tasks.Buttons.Save')}</button>
-                </div>
+                  <div>
+                    <input type="text" defaultValue={task.name} onChange={(e) => setInputUpdateName(e.target.value)} readOnly={inputState} />
+                    <button type="button" onClick={() => completeTask(task)}>{t('Tasks.Buttons.Complete')}</button>
+                    <button type="button" hidden={inputState} onClick={() => { updateTaskFoo(task); setInputState(true); }}>{t('Tasks.Buttons.Save')}</button>
+                  </div>
                 )))}
             </div>
             <div>

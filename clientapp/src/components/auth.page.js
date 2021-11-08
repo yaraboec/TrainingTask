@@ -1,11 +1,14 @@
 import { React, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import {
   BrowserRouter, Switch, Route, Link,
 } from 'react-router-dom';
+import { registerUser } from '../actions/auth.async.actions';
 
 const AuthPage = () => {
   const [t] = useTranslation();
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -13,9 +16,11 @@ const AuthPage = () => {
 
   const changeHandler = (e) => {
     setData((prevValues) => ({ ...prevValues, [e.target.name]: e.target.value }));
-    console.log(data);
   };
 
+  const register = () => {
+    dispatch(registerUser(data));
+  };
   return (
     <BrowserRouter>
       <Switch>
@@ -54,7 +59,7 @@ const AuthPage = () => {
                   <input type="password" name="password" placeholder={t('Auth.Password')} onChange={(e) => changeHandler(e)} />
                 </div>
                 <div>
-                  <button type="button" style={{ marginLeft: '55px', marginTop: '15px' }}>{t('Auth.Register')}</button>
+                  <button onClick={() => register()} type="button" style={{ marginLeft: '55px', marginTop: '15px' }}>{t('Auth.Register')}</button>
                 </div>
                 <div style={{ marginTop: '30px', fontSize: '0.9rem' }}>
                   <Link to="/login">{t('Auth.RegisterRequest')}</Link>
