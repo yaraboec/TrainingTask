@@ -59,7 +59,7 @@ const App = () => {
                     height: '30px', width: '150px', marginTop: '23px', marginLeft: '30px',
                   }}
                   type="button"
-                  onClick={() => setInputState(false)}
+                  onClick={() => setInputState(!inputState)}
                 >
                   {t('Tasks.Buttons.Edit')}
                 </button>

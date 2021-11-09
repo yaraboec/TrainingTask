@@ -5,12 +5,12 @@ import {
   BrowserRouter, Switch, Route, Link,
 } from 'react-router-dom';
 import AuthService from '../services/auth.service';
-import { LoginUser, registerUser, LogoutUser } from '../actions/auth.async.actions';
+import { LoginUser, registerUser } from '../actions/auth.async.actions';
 
 const AuthPage = () => {
   const [t] = useTranslation();
   const dispatch = useDispatch();
-  const { logout, login } = useContext(AuthService);
+  const { login } = useContext(AuthService);
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -27,9 +27,7 @@ const AuthPage = () => {
   const loginAuth = () => {
     dispatch(LoginUser(data, login));
   };
-  const logoutAuth = () => {
-    dispatch(LogoutUser(logout));
-  };
+
   return (
     <BrowserRouter>
       <Switch>
@@ -41,7 +39,6 @@ const AuthPage = () => {
           }}
           >
             <Route path="/login">
-              <button onClick={() => logoutAuth()} type="button">{t('Auth.Logout')}</button>
               <div>
                 <div>{t('Auth.Login')}</div>
                 <div>

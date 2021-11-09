@@ -57,7 +57,7 @@ class AuthController {
       return res.status(400).json({ msg: 'Incorrect password. Try again.' });
     }
     const token = generateAccessToken(user._id);
-    return res.json(token);
+    return res.json({ token, Id: user._id });
   }
 }
 
