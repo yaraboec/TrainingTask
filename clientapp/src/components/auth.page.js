@@ -1,16 +1,16 @@
-import { React, useState } from 'react';
+import { React, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import {
   BrowserRouter, Switch, Route, Link,
 } from 'react-router-dom';
-import useAuth from '../hooks/auth.hook';
+import AuthService from '../services/auth.service';
 import { LoginUser, registerUser, LogoutUser } from '../actions/auth.async.actions';
 
 const AuthPage = () => {
   const [t] = useTranslation();
   const dispatch = useDispatch();
-  const { logout, login } = useAuth();
+  const { logout, login } = useContext(AuthService);
   const [data, setData] = useState({
     email: '',
     password: '',

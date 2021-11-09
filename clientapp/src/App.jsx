@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   useEffect, useState,
 } from 'react';
-import List from './components/list.tasks';
 import './App.css';
 import {
   fetchTasks, addTask, deleteTask, updateTask,
@@ -44,7 +43,6 @@ const App = () => {
 
   return (
     <div className="app">
-      <List />
       <h1>{t('Welcome')}</h1>
       <div>
         <input type="text" onChange={(e) => setName(e.target.value)} />
