@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import Header from './header.auth';
 import useRoutes from '../router';
 import useAuth from '../hooks/auth.hook';
+import AuthService from '../services/auth.service';
 
 const ConnectApp = () => {
   const {
@@ -13,7 +13,7 @@ const ConnectApp = () => {
   const routes = useRoutes(isLoggedIn);
 
   return (
-    <Provider value={{
+    <AuthService.Provider value={{
       login, logout, token, isAlready, isLoggedIn,
     }}
     >
@@ -21,7 +21,7 @@ const ConnectApp = () => {
         <Header />
         {routes}
       </BrowserRouter>
-    </Provider>
+    </AuthService.Provider>
   );
 };
 
