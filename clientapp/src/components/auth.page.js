@@ -69,7 +69,9 @@ const AuthPage = () => {
                   <input type="password" name="password" placeholder={t('Auth.Password')} onChange={(e) => changeHandler(e)} />
                 </div>
                 <div>
-                  <button onClick={() => register()} type="button" style={{ marginLeft: '55px', marginTop: '15px' }}>{t('Auth.Register')}</button>
+                  <Link to="/login">
+                    <button onClick={() => register()} type="button" style={{ marginLeft: '55px', marginTop: '15px' }}>{t('Auth.Register')}</button>
+                  </Link>
                 </div>
                 <div style={{ marginTop: '30px', fontSize: '0.9rem' }}>
                   <Link to="/login">{t('Auth.LoginRequest')}</Link>
