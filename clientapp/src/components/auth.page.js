@@ -4,11 +4,13 @@ import { useDispatch } from 'react-redux';
 import {
   BrowserRouter, Switch, Route, Link,
 } from 'react-router-dom';
-import { registerUser } from '../actions/auth.async.actions';
+import useAuth from '../hooks/auth.hook';
+import { LoginUser, registerUser, LogoutUser } from '../actions/auth.async.actions';
 
 const AuthPage = () => {
   const [t] = useTranslation();
   const dispatch = useDispatch();
+  const { logout, login } = useAuth();
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -21,6 +23,13 @@ const AuthPage = () => {
   const register = () => {
     dispatch(registerUser(data));
   };
+
+  const loginAuth = () => {
+    dispatch(LoginUser(data, login));
+  };
+  const logoutAuth = () => {
+    dispatch(LogoutUser(logout));
+  };
   return (
     <BrowserRouter>
       <Switch>
@@ -32,6 +41,7 @@ const AuthPage = () => {
           }}
           >
             <Route path="/login">
+              <button onClick={() => logoutAuth()} type="button">{t('Auth.Logout')}</button>
               <div>
                 <div>{t('Auth.Login')}</div>
                 <div>
@@ -41,10 +51,10 @@ const AuthPage = () => {
                   <input type="password" name="password" placeholder={t('Auth.Password')} onChange={(e) => changeHandler(e)} />
                 </div>
                 <div>
-                  <button type="button" style={{ marginLeft: '55px', marginTop: '15px' }}>{t('Auth.Login')}</button>
+                  <button onClick={() => loginAuth()} type="button" style={{ marginLeft: '55px', marginTop: '15px' }}>{t('Auth.Login')}</button>
                 </div>
                 <div style={{ marginTop: '30px', fontSize: '0.9rem' }}>
-                  <Link to="/registration">{t('Auth.LoginRequest')}</Link>
+                  <Link to="/registration">{t('Auth.RegisterRequest')}</Link>
                 </div>
               </div>
             </Route>
@@ -62,7 +72,7 @@ const AuthPage = () => {
                   <button onClick={() => register()} type="button" style={{ marginLeft: '55px', marginTop: '15px' }}>{t('Auth.Register')}</button>
                 </div>
                 <div style={{ marginTop: '30px', fontSize: '0.9rem' }}>
-                  <Link to="/login">{t('Auth.RegisterRequest')}</Link>
+                  <Link to="/login">{t('Auth.LoginRequest')}</Link>
                 </div>
               </div>
             </Route>

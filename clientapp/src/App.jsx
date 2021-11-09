@@ -21,7 +21,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchTasks());
-  }, []);
+  }, [dispatch]);
 
   const addTaskFoo = () => {
     const task = new TaskCreateRequest(name, true);

@@ -27,7 +27,7 @@ class AuthController {
       return res.status(400).json({ msg: 'Email is already in use.' });
     }
 
-    const hashPassword = bcrypt.hashSync(password, 7);
+    const hashPassword = await bcrypt.hash(password, 7);
     const user = new User({
       email, password: hashPassword,
     });
@@ -51,7 +51,7 @@ class AuthController {
       return res.status(400).json({ msg: 'User with such email was not find.' });
     }
 
-    const unHashedPassword = bcrypt.compareSync(password, user.password);
+    const unHashedPassword = await bcrypt.compare(password, user.password);
 
     if (!unHashedPassword) {
       return res.status(400).json({ msg: 'Incorrect password. Try again.' });

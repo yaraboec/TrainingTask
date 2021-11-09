@@ -20,6 +20,6 @@ const authReducer = (state = initialState, action) => {
 };
 
 export default authReducer;
-export const registerAction = (payload) => ({ type: REGISET_USER, payload });
+export const registerAction = () => ({ type: REGISET_USER });
 export const loginAction = (payload) => ({ type: LOGIN_USER, payload });
 export const logoutAction = () => ({ type: LOG_OUT });

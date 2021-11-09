@@ -1,17 +1,15 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './i18n';
+import { Provider } from 'react-redux';
 import store from './store/store';
-import Header from './components/header.auth';
-import AuthPage from './components/auth.page';
+import ConnectApp from './components/connect.page';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Header />
-      <AuthPage />
+      <ConnectApp />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),

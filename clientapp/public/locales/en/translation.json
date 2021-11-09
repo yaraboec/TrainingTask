@@ -20,6 +20,7 @@
         "Email": "Email",
         "Password": "Password",
         "RegisterRequest": "Dont have an account yet?",
-        "LoginRequest": "Already have an account?"
+        "LoginRequest": "Already have an account?",
+        "Logout": "Log out"
     }
     }
