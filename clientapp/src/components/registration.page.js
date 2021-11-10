@@ -31,9 +31,9 @@ const RegistrationPage = () => {
     setEmail(e.target.value);
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(String(e.target.value).toLowerCase())) {
-      setEmailError('Incorrect email');
+      setEmailError(t('Validation.IncorrectEmail'));
       if (!e.target.value) {
-        setEmailError('Email can not be empty');
+        setEmailError(t('Validation.EmptyEmail'));
       }
     } else {
       setEmailError('');
@@ -43,9 +43,9 @@ const RegistrationPage = () => {
   const passwordHandler = (e) => {
     setPassword(e.target.value);
     if (e.target.value.length < 8 || e.target.value.length > 16) {
-      setPasswordError('Password should be between 8 and 16 symbols');
+      setPasswordError(t('Validation.IncorrectPass'));
       if (!e.target.value) {
-        setPasswordError('Password can not be empty');
+        setPasswordError(t('Validation.EmptyPass'));
       }
     } else {
       setPasswordError('');

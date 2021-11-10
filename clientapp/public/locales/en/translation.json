@@ -1,6 +1,12 @@
 {
-    "Welcome" : "Welcome to React",
+    "Welcome" : "Hi! Here's a list of your tasks",
     "Hello": "Hello",
+    "Validation": {
+        "EmptyPass": "Password can not be empty",
+        "EmptyEmail": "Email can not be empty",
+        "IncorrectEmail": "Incorrect email",
+        "IncorrectPass":"Password should be between 8 and 16 symbols"
+    },
     "Tasks": {
         "Active": "Active tasks",
         "Completed":"Completed tasks",
@@ -22,5 +28,11 @@
         "RegisterRequest": "Dont have an account yet?",
         "LoginRequest": "Already have an account?",
         "Logout": "Log out"
+    },
+    "Toaster": {
+        "Add": "Task was successfully added!",
+        "Complete": "Task was successfully completed!",
+        "Update": "Task was successfully updated!",
+        "Delete": "Task was successfully deleted!"
     }
     }
