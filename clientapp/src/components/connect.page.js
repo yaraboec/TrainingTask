@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
 import Header from './header.auth';
 import useRoutes from '../router';
 import useAuth from '../hooks/auth.hook';
@@ -19,7 +20,9 @@ const ConnectApp = () => {
     >
       <BrowserRouter>
         <Header />
-        {routes}
+        <ToastProvider>
+          {routes}
+        </ToastProvider>
       </BrowserRouter>
     </AuthService.Provider>
   );

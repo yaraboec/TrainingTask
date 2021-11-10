@@ -1,6 +1,7 @@
 import { React, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { Button } from 'react-bootstrap';
 import AuthService from '../services/auth.service';
 import { LogoutUser } from '../actions/auth.async.actions';
 
@@ -18,7 +19,18 @@ const Header = () => {
       <nav>
         <div style={{ backgroundColor: '#ccc', height: '40px', textAlign: 'end' }}>
           { isLoggedIn
-          && <a onClick={() => logoutAuth()} style={{ marginRight: '20px', fontSize: '1.3rem' }} href="/">{t('Auth.Logout')}</a>}
+          && (
+          <Button
+            variant="link"
+            onClick={() => logoutAuth()}
+            style={{
+              marginRight: '20px', fontSize: '1.1rem', textDecoration: 'none',
+            }}
+            href="/"
+          >
+            {t('Auth.Logout')}
+          </Button>
+          )}
         </div>
       </nav>
     </div>
