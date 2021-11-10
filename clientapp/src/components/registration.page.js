@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import {
   Link,
 } from 'react-router-dom';
+import { Button, Form } from 'react-bootstrap';
 import { registerUser } from '../actions/auth.async.actions';
 
 const RegistrationPage = () => {
@@ -74,11 +75,11 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div>
-      <div>{t('Auth.Registration')}</div>
+    <div style={{ textAlign: 'center' }}>
+      <div style={{ marginBottom: '10px' }}>{t('Auth.Registration')}</div>
       <div>
         {(emailDirty && emailError) && <div style={{ color: 'red' }}>{emailError}</div>}
-        <input
+        <Form.Control
           type="email"
           name="email"
           onBlur={(e) => blurHandler(e)}
@@ -87,9 +88,9 @@ const RegistrationPage = () => {
           onChange={(e) => emailHandler(e)}
         />
       </div>
-      <div>
+      <div style={{ marginTop: '10px' }}>
         {(passwordDirty && passwordError) && <div style={{ color: 'red' }}>{passwordError}</div>}
-        <input
+        <Form.Control
           type="password"
           name="password"
           onBlur={(e) => blurHandler(e)}
@@ -100,15 +101,15 @@ const RegistrationPage = () => {
       </div>
       <div>
         <Link to="/login">
-          <button
+          <Button
             onClick={() => register()}
             disabled={!formValid}
             type="button"
-            style={{ marginLeft: '55px', marginTop: '15px' }}
+            style={{ marginTop: '15px' }}
           >
             {t('Auth.Register')}
 
-          </button>
+          </Button>
         </Link>
       </div>
       <div style={{ marginTop: '30px', fontSize: '0.9rem' }}>

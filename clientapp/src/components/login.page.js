@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import {
   Link,
 } from 'react-router-dom';
+import { Button, Form } from 'react-bootstrap';
 import AuthService from '../services/auth.service';
 import { LoginUser } from '../actions/auth.async.actions';
 
@@ -76,11 +77,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <div>{t('Auth.Login')}</div>
+    <div style={{ textAlign: 'center' }}>
+      <div style={{ marginBottom: '10px' }}>{t('Auth.Login')}</div>
       <div>
         {(emailDirty && emailError) && <div style={{ color: 'red' }}>{emailError}</div>}
-        <input
+        <Form.Control
           type="email"
           name="email"
           placeholder={t('Auth.Email')}
@@ -88,9 +89,9 @@ const LoginPage = () => {
           onChange={(e) => emailHandler(e)}
         />
       </div>
-      <div>
+      <div style={{ marginTop: '10px' }}>
         {(passwordDirty && passwordError) && <div style={{ color: 'red' }}>{passwordError}</div>}
-        <input
+        <Form.Control
           type="password"
           name="password"
           placeholder={t('Auth.Password')}
@@ -99,14 +100,14 @@ const LoginPage = () => {
         />
       </div>
       <div>
-        <button
+        <Button
           onClick={() => loginAuth()}
           type="button"
           disabled={!formValid}
-          style={{ marginLeft: '55px', marginTop: '15px' }}
+          style={{ marginTop: '15px' }}
         >
           {t('Auth.Login')}
-        </button>
+        </Button>
       </div>
       <div style={{ marginTop: '30px', fontSize: '0.9rem' }}>
         <Link to="/registration">{t('Auth.RegisterRequest')}</Link>
