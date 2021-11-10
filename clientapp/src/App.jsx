@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  useEffect, useState,
+  useEffect, useState, useContext,
 } from 'react';
 import './App.css';
 import {
@@ -9,21 +9,23 @@ import {
 } from './actions/task.async.actions';
 import TaskCreateRequest from './models/create.task.model';
 import TaskUpdateRequest from './models/update.task.model';
+import AuthService from './services/auth.service';
 
 const App = () => {
   const [t] = useTranslation();
   const dispatch = useDispatch();
+  const { idUser } = useContext(AuthService);
   const [inputState, setInputState] = useState(true);
   const [inputUpdateName, setInputUpdateName] = useState('');
   const [name, setName] = useState('');
   const tasks = useSelector((state) => state.tasks.tasks);
 
   useEffect(() => {
-    dispatch(fetchTasks());
-  }, [dispatch]);
+    dispatch(fetchTasks(idUser));
+  }, [dispatch, idUser]);
 
   const addTaskFoo = () => {
-    const task = new TaskCreateRequest(name, true);
+    const task = new TaskCreateRequest(name, true, idUser);
     dispatch(addTask(task));
   };
 
@@ -32,12 +34,12 @@ const App = () => {
   };
 
   const completeTask = (task) => {
-    const taskModel = new TaskUpdateRequest(task._id, task.name, false);
+    const taskModel = new TaskUpdateRequest(task._id, task.name, false, idUser);
     dispatch(updateTask(taskModel));
   };
 
   const updateTaskFoo = (task) => {
-    const taskModel = new TaskUpdateRequest(task._id, inputUpdateName, task.status);
+    const taskModel = new TaskUpdateRequest(task._id, inputUpdateName, task.status, idUser);
     dispatch(updateTask(taskModel));
   };
 

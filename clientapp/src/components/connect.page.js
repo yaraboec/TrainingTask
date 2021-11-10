@@ -7,14 +7,14 @@ import AuthService from '../services/auth.service';
 
 const ConnectApp = () => {
   const {
-    login, logout, token, isAlready,
+    login, logout, token, idUser, isAlready,
   } = useAuth();
   const isLoggedIn = !!token;
   const routes = useRoutes(isLoggedIn);
 
   return (
     <AuthService.Provider value={{
-      login, logout, token, isAlready, isLoggedIn,
+      login, logout, token, isAlready, idUser, isLoggedIn,
     }}
     >
       <BrowserRouter>

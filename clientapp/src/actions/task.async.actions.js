@@ -1,12 +1,17 @@
+import axios from 'axios';
 import backConString from '../enviroment';
 import {
   addTaskAction, addTasksAction, deleteTaskAction, updateTaskAction,
 } from '../reducers/task.reducer';
 
-export const fetchTasks = () => async function (dispatch) {
-  await fetch(backConString.concat('/api/tasks'))
-    .then((response) => response.json())
-    .then((json) => dispatch(addTasksAction(json)));
+export const fetchTasks = (id) => async function (dispatch) {
+  await axios.get(backConString.concat('/api/tasks/'), {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    params: { idUser: id },
+  })
+    .then((response) => dispatch(addTasksAction(response.data)));
 };
 
 export const addTask = (task) => async function (dispatch) {

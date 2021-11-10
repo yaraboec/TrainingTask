@@ -9,9 +9,9 @@
         "Delete": "Delete task",
         "Complete": "Complete task",
         "Edit": "Edit",
-        "Save": "Save",
+        "Save": "Save"
+        },
         "NoTask": "You dont have any tasks. Lets create a couple!"
-        }
     },
     "Auth": {
         "Registration":"Registration",

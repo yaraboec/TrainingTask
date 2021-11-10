@@ -4,22 +4,24 @@ import jwtDecode from 'jwt-decode';
 const useAuth = () => {
   const [token, setToken] = useState('');
   const [isAlready, setIsAlready] = useState(false);
+  const [idUser, setIdUser] = useState('');
 
   const login = useCallback((jwt) => {
-    setToken(jwt);
-    localStorage.setItem('token', JSON.stringify(jwt));
-    console.log(jwt);
-    const decoded = jwtDecode(jwt);
-    console.log(decoded.id);
+    if (jwt.token) {
+      setToken(jwt.token);
+      localStorage.setItem('data', JSON.stringify({ token: jwt.token }));
+      const decoded = jwtDecode(jwt.token);
+      setIdUser(decoded.id);
+    }
   }, []);
 
   const logout = () => {
     setToken('');
-    localStorage.removeItem('token');
+    localStorage.removeItem('data');
   };
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('token'));
+    const data = JSON.parse(localStorage.getItem('data'));
 
     if (data) {
       login(data);
@@ -28,7 +30,7 @@ const useAuth = () => {
   }, [login]);
 
   return {
-    login, logout, token, isAlready,
+    login, logout, token, isAlready, idUser,
   };
 };
 export default useAuth;

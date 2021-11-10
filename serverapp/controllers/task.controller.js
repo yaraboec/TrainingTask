@@ -19,7 +19,8 @@ class TaskController {
   }
 
   async getAll(req, res) {
-    const tasks = await taskService.getAll();
+    const { idUser } = req.query;
+    const tasks = await taskService.getAll(idUser);
 
     return res.json(tasks);
   }
