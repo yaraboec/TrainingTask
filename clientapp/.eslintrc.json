@@ -8,7 +8,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "plugin:react-hooks/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -19,9 +20,14 @@
     },
     "plugins": [
         "react",
-        "i18next"
+        "i18next",
+        "react-hooks"
     ],
     "rules": {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "no-underscore-dangle":  ["error", { "allow": ["_id"] }],
+      "no-alert": 0,
       "react/react-in-jsx-scope": "off",
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }

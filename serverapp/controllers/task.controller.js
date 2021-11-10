@@ -1,3 +1,5 @@
+const { validationResult } = require('express-validator');
+
 const NotFoundException = require('../errors/not.found.error');
 const TaskService = require('../services/task.service');
 
@@ -5,13 +7,20 @@ const taskService = new TaskService();
 
 class TaskController {
   async create(req, res) {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const task = await taskService.create(req.body);
 
     return res.json(task);
   }
 
   async getAll(req, res) {
-    const tasks = await taskService.getAll();
+    const { idUser } = req.query;
+    const tasks = await taskService.getAll(idUser);
 
     return res.json(tasks);
   }
@@ -23,23 +32,23 @@ class TaskController {
       return next(new NotFoundException('No task found with that ID', 404));
     }
 
-    return res.status(200).json({
-      status: 'success',
-      data: { gotTask },
-    });
+    return res.status(200).json(gotTask);
   }
 
   async update(req, res, next) {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const updatedTask = await taskService.update(req.body);
 
     if (!updatedTask) {
       return next(new NotFoundException('No task found with that ID', 404));
     }
 
-    return res.status(200).json({
-      status: 'success',
-      data: { updatedTask },
-    });
+    return res.status(200).json(updatedTask);
   }
 
   async delete(req, res, next) {
@@ -48,9 +57,7 @@ class TaskController {
     if (!deletedTask) {
       return next(new NotFoundException('No task found with that ID', 404));
     }
-    return res.status(204).json({
-      status: 'success',
-    });
+    return res.status(200).json(deletedTask._id);
   }
 }
 

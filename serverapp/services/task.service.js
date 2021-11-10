@@ -7,8 +7,8 @@ class TaskService {
     return createdTask;
   }
 
-  async getAll() {
-    const tasks = await Task.find();
+  async getAll(idUser) {
+    const tasks = await Task.find({ holder: idUser });
 
     return tasks;
   }

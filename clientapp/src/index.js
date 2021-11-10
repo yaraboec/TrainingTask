@@ -2,11 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './i18n';
-import App from './App';
+import { Provider } from 'react-redux';
+import store from './store/store';
+import ConnectApp from './components/connect.page';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <ConnectApp />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
