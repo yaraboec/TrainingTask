@@ -27,7 +27,6 @@ export const LoginUser = (user, login) => async function (dispatch) {
       if (json) {
         login(json);
       }
-      console.log(json);
       dispatch(loginAction(json));
     });
 };

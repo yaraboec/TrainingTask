@@ -3,13 +3,12 @@ const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user.model');
-const { secret } = require('../secret');
 
 const generateAccessToken = (id) => {
   const payload = {
     id,
   };
-  return jwt.sign(payload, secret, { expiresIn: '1h' });
+  return jwt.sign(payload, process.env.secret, { expiresIn: '1h' });
 };
 
 class AuthController {
@@ -48,7 +47,7 @@ class AuthController {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ msg: 'User with such email was not find.' });
+      return res.status(400).json({ msg: 'User with such email was not found.' });
     }
 
     const unHashedPassword = await bcrypt.compare(password, user.password);

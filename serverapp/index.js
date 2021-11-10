@@ -1,8 +1,8 @@
+require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 
-const { dbConString, clientUrl } = require('./enviroment');
 const authRouter = require('./routes/auth.router');
 const taskRouter = require('./routes/task.router');
 
@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 
 const corsOpts = {
-  origin: clientUrl,
+  origin: process.env.clientUrl,
 
   methods: [
     'GET',
@@ -43,7 +43,7 @@ app.use((err, req, res, next) => {
 
 const start = async () => {
   try {
-    await mongoose.connect(dbConString, {
+    await mongoose.connect(process.env.dbConString, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });

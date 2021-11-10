@@ -76,6 +76,8 @@ const App = () => {
         >
           {t('Tasks.Buttons.Add')}
         </Button>
+        {tasks.length > 0
+        && (
         <Button
           hidden={isVisible}
           type="button"
@@ -84,6 +86,7 @@ const App = () => {
         >
           {t('Tasks.Buttons.Edit')}
         </Button>
+        )}
       </div>
       {tasks.length > 0
         ? (

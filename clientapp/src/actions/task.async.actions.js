@@ -5,7 +5,7 @@ import {
 } from '../reducers/task.reducer';
 
 export const fetchTasks = (id) => async function (dispatch) {
-  await axios.get(backConString.concat('/api/tasks/'), {
+  await axios.get(process.env.REACT_APP_backConString.concat('/api/tasks/'), {
     headers: {
       'Content-Type': 'application/json',
     },
