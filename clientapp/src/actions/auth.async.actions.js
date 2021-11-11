@@ -1,8 +1,7 @@
-import backConString from '../enviroment';
 import { loginAction, logoutAction, registerAction } from '../reducers/auth.reducer';
 
 export const registerUser = (user) => async function (dispatch) {
-  await fetch(backConString.concat('/auth/registration'), {
+  await fetch(process.env.REACT_APP_backConString.concat('/auth/registration'), {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
@@ -16,7 +15,7 @@ export const registerUser = (user) => async function (dispatch) {
 };
 
 export const LoginUser = (user, login) => async function (dispatch) {
-  await fetch(backConString.concat('/auth/login'), {
+  await fetch(process.env.REACT_APP_backConString.concat('/auth/login'), {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {

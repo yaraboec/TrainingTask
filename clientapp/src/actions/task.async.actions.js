@@ -1,5 +1,4 @@
 import axios from 'axios';
-import backConString from '../enviroment';
 import {
   addTaskAction, addTasksAction, deleteTaskAction, updateTaskAction,
 } from '../reducers/task.reducer';
@@ -15,7 +14,7 @@ export const fetchTasks = (id) => async function (dispatch) {
 };
 
 export const addTask = (task) => async function (dispatch) {
-  await fetch(backConString.concat('/api/tasks'), {
+  await fetch(process.env.REACT_APP_backConString.concat('/api/tasks'), {
     method: 'POST',
     body: JSON.stringify(task),
     headers: {
@@ -27,7 +26,7 @@ export const addTask = (task) => async function (dispatch) {
 };
 
 export const updateTask = (task) => async function (dispatch) {
-  await fetch(backConString.concat('/api/tasks'), {
+  await fetch(process.env.REACT_APP_backConString.concat('/api/tasks'), {
     method: 'PUT',
     body: JSON.stringify(task),
     headers: {
@@ -38,7 +37,7 @@ export const updateTask = (task) => async function (dispatch) {
 };
 
 export const deleteTask = (id) => async function (dispatch) {
-  await fetch(backConString.concat('/api/tasks/').concat(id), {
+  await fetch(process.env.REACT_APP_backConString.concat('/api/tasks/').concat(id), {
     method: 'DELETE',
   }).then((responce) => responce.json())
     .then((json) => dispatch(deleteTaskAction(json)));
