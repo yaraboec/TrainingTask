@@ -12,7 +12,7 @@ axios.interceptors.request.use((config) => {
     config.url = join(process.env.REACT_APP_backConString, config.url);
   }
 
-  if (data) {
+  if (data && data.token) {
     config.headers = { Authorization: `Bearer ${data.token}` };
   }
 
