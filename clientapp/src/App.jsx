@@ -27,8 +27,8 @@ const App = () => {
   const tasks = useSelector((state) => state.tasks.tasks);
 
   useEffect(() => {
-    dispatch(fetchTasks(idUser));
-  }, [dispatch, idUser]);
+    dispatch(fetchTasks());
+  }, [dispatch]);
 
   const addTaskFoo = () => {
     const task = new TaskCreateRequest(name, true, idUser);

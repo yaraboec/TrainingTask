@@ -1,9 +1,16 @@
 const { validationResult } = require('express-validator');
+const jwtDecode = require('jwt-decode');
 
 const NotFoundException = require('../errors/not.found.error');
 const TaskService = require('../services/task.service');
 
 const taskService = new TaskService();
+
+const getToken = (req) => {
+  const token = req.headers.authorization.substring(7, req.headers.authorization.length);
+
+  return token;
+};
 
 class TaskController {
   async create(req, res) {
@@ -12,6 +19,7 @@ class TaskController {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    console.log(getToken(req));
 
     const task = await taskService.create(req.body);
 
@@ -19,8 +27,9 @@ class TaskController {
   }
 
   async getAll(req, res) {
-    const { idUser } = req.query;
-    const tasks = await taskService.getAll(idUser);
+    const token = getToken(req);
+    const decodedToken = jwtDecode(token);
+    const tasks = await taskService.getAll(decodedToken.id);
 
     return res.json(tasks);
   }

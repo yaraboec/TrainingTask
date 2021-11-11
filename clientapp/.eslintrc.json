@@ -24,6 +24,7 @@
         "react-hooks"
     ],
     "rules": {
+        "no-param-reassign": 0,
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "no-underscore-dangle":  ["error", { "allow": ["_id"] }],
