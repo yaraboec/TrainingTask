@@ -26,7 +26,7 @@ export const addTask = (task) => async function (dispatch) {
 };
 
 export const updateTask = (task) => async function (dispatch) {
-  await fetch(process.env.REACT_APP_backConString.concat('/api/tasks'), {
+  await fetch(process.env.REACT_APP_backConString.concat(`/api/tasks/${task._id}`), {
     method: 'PUT',
     body: JSON.stringify(task),
     headers: {

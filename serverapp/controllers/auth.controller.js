@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 
+const NotFoundException = require('../errors/not.found.error');
 const User = require('../models/user.model');
 
 const generateAccessToken = (id) => {
@@ -36,7 +37,7 @@ class AuthController {
     return res.status(200).json({ msg: 'User is successfully registered.' });
   }
 
-  async login(req, res) {
+  async login(req, res, next) {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -47,13 +48,13 @@ class AuthController {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ msg: 'User with such email was not found.' });
+      return next(new NotFoundException('Email or password is incorrect', 400));
     }
 
     const unHashedPassword = await bcrypt.compare(password, user.password);
 
     if (!unHashedPassword) {
-      return res.status(400).json({ msg: 'Incorrect password. Try again.' });
+      return next(new NotFoundException('Email or password is incorrect', 400));
     }
     const token = generateAccessToken(user._id);
     return res.json({ token });
