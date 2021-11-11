@@ -14,31 +14,26 @@ export const fetchTasks = (id) => async function (dispatch) {
 };
 
 export const addTask = (task) => async function (dispatch) {
-  await fetch(process.env.REACT_APP_backConString.concat('/api/tasks'), {
+  await axios.post(process.env.REACT_APP_backConString.concat('/api/tasks'), task, {
     method: 'POST',
-    body: JSON.stringify(task),
     headers: {
       'Content-Type': 'application/json',
     },
   })
-    .then((responce) => responce.json())
-    .then((json) => dispatch(addTaskAction(json)));
+    .then((responce) => dispatch(addTaskAction(responce.data)));
 };
 
 export const updateTask = (task) => async function (dispatch) {
-  await fetch(process.env.REACT_APP_backConString.concat(`/api/tasks/${task._id}`), {
+  await axios.put(process.env.REACT_APP_backConString.concat(`/api/tasks/${task._id}`), task, {
     method: 'PUT',
-    body: JSON.stringify(task),
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((response) => response.json())
-    .then((json) => dispatch(updateTaskAction(json)));
+  }).then((response) => dispatch(updateTaskAction(response.data)));
 };
 
 export const deleteTask = (id) => async function (dispatch) {
-  await fetch(process.env.REACT_APP_backConString.concat('/api/tasks/').concat(id), {
+  await axios.delete(process.env.REACT_APP_backConString.concat('/api/tasks/').concat(id), {
     method: 'DELETE',
-  }).then((responce) => responce.json())
-    .then((json) => dispatch(deleteTaskAction(json)));
+  }).then((responce) => dispatch(deleteTaskAction(responce.data)));
 };
