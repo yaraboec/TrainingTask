@@ -19,7 +19,7 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
-export const fetchTasks = () => async function (dispatch) {
+export const fetchTasks = () => async function fetchInternal(dispatch) {
   await axios.get('/api/tasks/', {
     headers: {
       'Content-Type': 'application/json',
@@ -28,17 +28,17 @@ export const fetchTasks = () => async function (dispatch) {
     .then((response) => dispatch(addTasksAction(response.data)));
 };
 
-export const addTask = (task) => async function (dispatch) {
+export const addTask = (task) => async function addInternal(dispatch) {
   await axios.post('/api/tasks', task, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
   })
-    .then((responce) => dispatch(addTaskAction(responce.data)));
+    .then((response) => dispatch(addTaskAction(response.data)));
 };
 
-export const updateTask = (task) => async function (dispatch) {
+export const updateTask = (task) => async function updateInternal(dispatch) {
   await axios.put(`/api/tasks/${task._id}`, task, {
     method: 'PUT',
     headers: {
@@ -47,7 +47,7 @@ export const updateTask = (task) => async function (dispatch) {
   }).then((response) => dispatch(updateTaskAction(response.data)));
 };
 
-export const deleteTask = (id) => async function (dispatch) {
+export const deleteTask = (id) => async function deleteInternal(dispatch) {
   await axios.delete(('/api/tasks/').concat(id), {
     method: 'DELETE',
   }).then((responce) => dispatch(deleteTaskAction(responce.data)));

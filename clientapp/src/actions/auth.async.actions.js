@@ -1,33 +1,33 @@
 import axios from 'axios';
 import { loginAction, logoutAction, registerAction } from '../reducers/auth.reducer';
 
-export const registerUser = (user) => async function (dispatch) {
+export const registerUser = (user) => async function registerInternal(dispatch) {
   await axios.post(process.env.REACT_APP_backConString.concat('/auth/registration'), user, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((responce) => {
-    console.log(responce.data);
+  }).then((response) => {
+    console.log(response.data);
     dispatch(registerAction());
   });
 };
 
-export const LoginUser = (user, login) => async function (dispatch) {
+export const LoginUser = (user, login) => async function loginInternal(dispatch) {
   await axios.post(process.env.REACT_APP_backConString.concat('/auth/login'), user, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((responce) => {
-    if (responce.data) {
-      login(responce.data);
+  }).then((response) => {
+    if (response.data) {
+      login(response.data);
     }
-    dispatch(loginAction(responce.data));
+    dispatch(loginAction(response.data));
   });
 };
 
-export const LogoutUser = (logout) => async function (dispatch) {
+export const LogoutUser = (logout) => async function logoutInternal(dispatch) {
   logout();
   dispatch(logoutAction());
 };
