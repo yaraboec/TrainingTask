@@ -6,14 +6,19 @@ import { useDispatch } from 'react-redux';
 import {
   Link,
 } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
+import {
+  Button, Form, InputGroup, Image,
+} from 'react-bootstrap';
 import { registerUser } from '../actions/auth.async.actions';
+import showPwdImg from '../assets/images/show.pass.svg';
+import hidePwdImg from '../assets/images/hide.pass.svg';
 
 const RegistrationPage = () => {
   const [t] = useTranslation();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isRevealPwd, setIsRevealPwd] = useState(false);
   const [emailDirty, setEmailDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
   const [emailError, setEmailError] = useState('Email can not be empty');
@@ -90,14 +95,26 @@ const RegistrationPage = () => {
       </div>
       <div style={{ marginTop: '10px' }}>
         {(passwordDirty && passwordError) && <div style={{ color: 'red' }}>{passwordError}</div>}
-        <Form.Control
-          type="password"
-          name="password"
-          onBlur={(e) => blurHandler(e)}
-          placeholder={t('Auth.Password')}
-          required
-          onChange={(e) => passwordHandler(e)}
-        />
+        <InputGroup className="mb-3">
+          <Form.Control
+            type={isRevealPwd ? 'text' : 'password'}
+            name="password"
+            onBlur={(e) => blurHandler(e)}
+            placeholder={t('Auth.Password')}
+            required
+            onChange={(e) => passwordHandler(e)}
+            aria-describedby="basic-addon1"
+          />
+          <InputGroup.Text>
+            <Image
+              style={{ width: '20px' }}
+              title={isRevealPwd ? 'Hide password' : 'Show password'}
+              src={isRevealPwd ? hidePwdImg : showPwdImg}
+              onClick={() => setIsRevealPwd((prevState) => !prevState)}
+              alt="passReveal"
+            />
+          </InputGroup.Text>
+        </InputGroup>
       </div>
       <div>
         <Link to="/login">
