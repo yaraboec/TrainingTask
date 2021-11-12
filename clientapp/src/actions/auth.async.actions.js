@@ -1,38 +1,33 @@
-import backConString from '../enviroment';
+import axios from 'axios';
 import { loginAction, logoutAction, registerAction } from '../reducers/auth.reducer';
 
-export const registerUser = (user) => async function (dispatch) {
-  await fetch(backConString.concat('/auth/registration'), {
+export const registerUser = (user) => async function registerInternal(dispatch) {
+  await axios.post(process.env.REACT_APP_backConString.concat('/auth/registration'), user, {
     method: 'POST',
-    body: JSON.stringify(user),
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((responce) => responce.json())
-    .then((json) => {
-      console.log(json);
-      dispatch(registerAction());
-    });
+  }).then((response) => {
+    console.log(response.data);
+    dispatch(registerAction());
+  });
 };
 
-export const LoginUser = (user, login) => async function (dispatch) {
-  await fetch(backConString.concat('/auth/login'), {
+export const LoginUser = (user, login) => async function loginInternal(dispatch) {
+  await axios.post(process.env.REACT_APP_backConString.concat('/auth/login'), user, {
     method: 'POST',
-    body: JSON.stringify(user),
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((responce) => responce.json())
-    .then((json) => {
-      if (json) {
-        login(json);
-      }
-      console.log(json);
-      dispatch(loginAction(json));
-    });
+  }).then((response) => {
+    if (response.data) {
+      login(response.data);
+    }
+    dispatch(loginAction(response.data));
+  });
 };
 
-export const LogoutUser = (logout) => async function (dispatch) {
+export const LogoutUser = (logout) => async function logoutInternal(dispatch) {
   logout();
   dispatch(logoutAction());
 };
